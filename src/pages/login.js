@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import FirebaseContext from "../context/firebase"
+import * as ROUTES from "../constants/browse"
+
 
 const Login = () => {
     const history = useHistory();
@@ -13,8 +15,17 @@ const Login = () => {
     const isInvalid = password === "" || emailAddress === "";
 
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
+
+        try {
+            await firebase.auth().signInWithEmailAndPassword(emailAddress, password)
+            history.push(ROUTES.DASHBOARD);
+        } catch (error) {
+            setEmailAddress("");
+            setPassword("");
+            setError(error.message)
+        }
         
     };
 
@@ -39,12 +50,14 @@ const Login = () => {
                             type="text"
                             placeholder="Email address"
                             className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
+                            value={emailAddress}
                             onChange={(e) => setEmailAddress(e.target.value)}
                         ></input>
                         <input aria-label="Enter your password"
                             type="password"
                             placeholder="Password"
                             className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
+                            value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         ></input>
                         <button
