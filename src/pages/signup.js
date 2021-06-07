@@ -66,11 +66,11 @@ const SignUp = () => {
     }, [])
  
     return (
-        <div className="container flex mx-auto max-w-screen-md items-center h-screen">
-            <div className="flex flex-col justify-center w-full">
-                <div className="flex flex-col items-center bg-white p-4 border border-gray-primary mb-4 rounded">
+        <div className="container flex justify-center mx-auto max-w-screen-md items-center h-screen">
+            <div className="flex flex-col justify-center w-6/12">
+                <div className={`flex flex-col items-center bg-white p-4 lg:border md:border border-gray-primary mb-4 rounded`}>
                     <h1 className="flex justify-center w-full">
-                            <img src="/images/logo.png" alt="instagram" className="mt-2 w6-/12 mb-4"></img>
+                            <img src="/images/logo.png" alt="instagram" className="mt-2 w6/12 mb-4"></img>
                     </h1>
                     { error && <p className="mb-4 text-xs text-red-primary">{error}</p>}
 
@@ -119,7 +119,7 @@ const SignUp = () => {
                     </form>
                     </div>
 
-                    <div className="flex justify-center items-center flex-col w-full bg-white p-4 border border-gray-primary rounded">
+                    <div className="flex justify-center items-center flex-col w-full bg-white p-4 lg:border md:border border-gray-primary rounded">
                         <p className="text-sm">
                             Have an account?
                             <Link to={ROUTES.LOGIN} className="font-bold text-blue-medium"> Sign in</Link>
