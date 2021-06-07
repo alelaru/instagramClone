@@ -3,7 +3,7 @@ import "firebase/firestore";
 import "firebase/auth";
 
 //Here i want to import the seed file
-import { seedDatabase } from "../seed"
+// import { seedDatabase } from "../seed"
 
 const config = { 
     apiKey: "AIzaSyAqnSO_IQ-iPg2ZSxlgkaC87sca2RE8-Ik",
@@ -18,7 +18,7 @@ const firebase = Firebase.initializeApp(config);
 const { FieldValue }  = Firebase.firestore;
 
 //Here is where i want to call the config once
-//We did it once and we are done
+//We did it once and we are done DO NOT USE IT
 // seedDatabase(firebase);
 
 export { firebase, FieldValue };

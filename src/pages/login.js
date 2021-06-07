@@ -1,5 +1,3 @@
-const Login = () => {
-    return ( <p>Login Page</p> );
-}
+const Login = () => <p>Login Page</p>;
  
 export default Login;
