@@ -11,7 +11,7 @@ const Header = () => {
     const {firebase } = useContext(FirebaseContext);
     const { user } = useContext(UserContext);
 
-    console.log("user", user);
+    // console.log("user", user);
     // console.log("firebase", firebase);
 
 
@@ -84,7 +84,14 @@ const Header = () => {
                                     </div>
                                 </>
                             ) : (
-                                <></>
+                                <>
+                                <Link to="/login">
+                                    <button type="button" className="bg-blue-medium font-bold text-small rounded text-white w-20 h-8">Log In</button>
+                                </Link>
+                                <Link to="/signup">
+                                    <button type="button" className="font-bold text-small rounded text-blue-medium w-20 h-8">Sign Up</button>
+                                </Link>
+                                </>
                             )
                         }
                     </div>

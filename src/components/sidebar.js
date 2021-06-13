@@ -1,5 +1,14 @@
+import useUser from "../hooks/use-user";
+
+
 const Sidebar = () => {
-    return ( <p>I am the sidebar</p> );
+
+    const {user}  = useUser();
+    console.log("x", user);
+
+    return ( 
+    <p>I am the sidebar</p> 
+    );
 }
  
 export default Sidebar;
