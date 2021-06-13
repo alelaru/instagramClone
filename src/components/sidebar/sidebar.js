@@ -6,7 +6,6 @@ import User from "./user";
 const Sidebar = () => {
 
     const {user: {username, fullName, userId}}  = useUser();
-    console.log(username);
 
     return ( 
     <div className="p-4">
