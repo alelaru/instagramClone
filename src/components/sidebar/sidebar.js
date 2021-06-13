@@ -5,13 +5,13 @@ import User from "./user";
 
 const Sidebar = () => {
 
-    const {user}  = useUser();
-    console.log("x", user);
+    const {user: {username, fullName, userId}}  = useUser();
+    console.log(username);
 
     return ( 
     <div className="p-4">
-        <User></User>
-        <Suggestions></Suggestions>
+        <User username={username} fullName={fullName}></User>
+        <Suggestions userId={userId}></Suggestions>
     </div> 
     );
 }
