@@ -5,7 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import SuggestedProfile from "./suggested-profile";
 
 
-const Suggestions = ({userId, following}) => {
+const Suggestions = ({userId, following, loggedInUserDocId}) => {
     // The profiles to be suggested to the usetr
     const [profiles, setProfiles] = useState(null);
 
@@ -44,10 +44,11 @@ const Suggestions = ({userId, following}) => {
                     (
                         <SuggestedProfile
                             key={profile.docId}
-                            userDocId={profile.docId}
+                            sgProfileId={profile.docId}
                             username={profile.username}
                             profileId={profile.userId}
                             userId={userId}
+                            loggedInUserDocId={loggedInUserDocId}
                         />
                     )
                 )}

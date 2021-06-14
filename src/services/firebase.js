@@ -50,17 +50,16 @@ export const getSuggestedProfiles = async(userId, following) => {
 
 //update the following array of the following user
 
-export const addToFollowingArrray = async (userId, userDocId) => {
-
-    const user = await getUserbyUserId(userId);
-    // console.log("This is the ID",user[0].docId);
+export const updateLoginUserFollowingArrray = async (loggedInUserDocId, sgProfileId, isFollowingProfile) => {
 
     const result = await firebase
     .firestore()
     .collection("users")
-    .doc(user[0].docId)
+    .doc(loggedInUserDocId)
     .update({
-        following: FieldValue.arrayUnion(userDocId)
+        following: isFollowingProfile 
+        ? FieldValue.arrayRemove(sgProfileId)
+        : FieldValue.arrayUnion(sgProfileId)
     })
 
     return result;
@@ -68,3 +67,17 @@ export const addToFollowingArrray = async (userId, userDocId) => {
 
 //update the followers array of the person begin followed
 
+export const updateLoginUserFollowersArrray = async (sgProfileId, userId, isFollowingProfile) => {
+
+    const result = await firebase
+    .firestore()
+    .collection("users")
+    .doc(sgProfileId)
+    .update({
+        followers: isFollowingProfile 
+        ? FieldValue.arrayRemove(userId)
+        : FieldValue.arrayUnion(userId)
+    })
+
+    return result;
+}

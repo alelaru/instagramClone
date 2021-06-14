@@ -1,20 +1,20 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { addToFollowingArrray } from "../../services/firebase";
+import { updateLoginUserFollowersArrray, updateLoginUserFollowingArrray } from "../../services/firebase";
 
 
-const SuggestedProfile = ({userDocId, username, profileId, userId}) => {
+const SuggestedProfile = ({sgProfileId, username, profileId, userId, loggedInUserDocId}) => {
     const [followed, setFollowed] = useState(false)
 
-    console.log(userId); 
-    console.log(userDocId);
-    console.log(profileId);
+    // console.log(userId); 
+    // // console.log(userDocId);
+    // console.log(profileId);
 
     const handlefollowedUser = async () => {
-        //setFollowed(true);
-
-        addToFollowingArrray(userId, userDocId);
+        setFollowed(true);
+        await updateLoginUserFollowingArrray(loggedInUserDocId, profileId, false);
+        await updateLoginUserFollowersArrray(sgProfileId, userId, false)
 
         //firebase create two functions
         //update the following array of the following user
@@ -51,7 +51,8 @@ export default SuggestedProfile;
 
 SuggestedProfile.propTypes = {
     userId : PropTypes.string.isRequired,
-    userDocId: PropTypes.string.isRequired,
+    sgProfileId: PropTypes.string.isRequired,
     profileId: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired
+    username: PropTypes.string.isRequired,
+    loggedInUserDocId: PropTypes.string.isRequired
 }
