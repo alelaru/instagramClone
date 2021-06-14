@@ -29,4 +29,25 @@ export const getUserbyUserId = async(userId) => {
     return user;
 }
 
+export const getSuggestedProfiles = async(userId, following) => {
+    const result = await firebase
+    .firestore()
+    .collection("users")
+    .where("userId", "!=", userId)
+    .limit(10) 
+    .get();
+
+    // Here it checks if the user is not i my following list 
+    const users =  result.docs
+                            .filter(item => !following.includes(item.id))
+                            .map(item => ({ 
+                                ...item.data(),
+                                docId: item.id
+                            }))
+
+    // console.log("users found for you",users);
+    return users;
+
+}
+
  

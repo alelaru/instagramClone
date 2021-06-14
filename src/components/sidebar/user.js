@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { memo } from "react";
 import Skeleton from "react-loading-skeleton";
 import { Link } from "react-router-dom";
 
