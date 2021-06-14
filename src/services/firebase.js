@@ -29,6 +29,7 @@ export const getUserbyUserId = async(userId) => {
     return user;
 }
 
+//Get suggested profiles from the database and show it to the person
 export const getSuggestedProfiles = async(userId, following) => {
     const result = await firebase
     .firestore()
@@ -44,10 +45,26 @@ export const getSuggestedProfiles = async(userId, following) => {
                                 ...item.data(),
                                 docId: item.id
                             }))
-
-    // console.log("users found for you",users);
     return users;
-
 }
 
- 
+//update the following array of the following user
+
+export const addToFollowingArrray = async (userId, userDocId) => {
+
+    const user = await getUserbyUserId(userId);
+    // console.log("This is the ID",user[0].docId);
+
+    const result = await firebase
+    .firestore()
+    .collection("users")
+    .doc(user[0].docId)
+    .update({
+        following: FieldValue.arrayUnion(userDocId)
+    })
+
+    return result;
+}
+
+//update the followers array of the person begin followed
+

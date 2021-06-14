@@ -1,13 +1,20 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { addToFollowingArrray } from "../../services/firebase";
 
 
 const SuggestedProfile = ({userDocId, username, profileId, userId}) => {
     const [followed, setFollowed] = useState(false)
 
+    console.log(userId); 
+    console.log(userDocId);
+    console.log(profileId);
+
     const handlefollowedUser = async () => {
-        setFollowed(true);
+        //setFollowed(true);
+
+        addToFollowingArrray(userId, userDocId);
 
         //firebase create two functions
         //update the following array of the following user
