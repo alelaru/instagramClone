@@ -1,9 +1,19 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 const SuggestedProfile = ({userDocId, username, profileId, userId}) => {
     const [followed, setFollowed] = useState(false)
+
+    const handlefollowedUser = async () => {
+        setFollowed(true);
+
+        //firebase create two functions
+        //update the following array of the following user
+        //update the followers array of the person begin followed
+
+    }
 
     return !followed 
     ? ( 
@@ -14,6 +24,16 @@ const SuggestedProfile = ({userDocId, username, profileId, userId}) => {
                     src={`/images/avatars/${username}.jpg`}
                     alt=""
                 ></img>
+                <Link to={`/p/${username}`}>
+                    <p className="font-bold text-sm">{username}</p>
+                </Link>
+            </div>
+            <div className="">
+                <button 
+                    className="text-sm font-bold text-blue-medium"
+                    type="button"
+                    onClick={handlefollowedUser}
+                >Follow</button>
             </div>
         </div>
     )
