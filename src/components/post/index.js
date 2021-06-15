@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import Image from "./image";
 import Header from "./header";
 import Actions from "./actions";
+import Footer from "./footer";
 import { useRef } from "react";
 
 
@@ -21,7 +22,8 @@ const Post = ({content}) => {
                 <Image caption={content.caption} src={content.imageSrc}></Image>
                 <Actions 
                 docId={content.docId} totalLikes={content.likes.length} 
-                likedPhoto={content.userLikedPhoto} handleFocus={handleFocus}></Actions> 
+                likedPhoto={content.userLikedPhoto} handleFocus={handleFocus}></Actions>
+                <Footer username={content.username} caption={content.caption}></Footer>
             </div> );
 }
  
