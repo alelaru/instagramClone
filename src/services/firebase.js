@@ -90,6 +90,7 @@ export const getPhotos = async (userId, following) => {
     .collection('photos')
     .where('userId', 'in', following)
     .get()
+    
 
     const userFollowedPhotos = result.docs.map((photo) => ({
         ...photo.data(),
