@@ -26,7 +26,7 @@ const usePhotos = () => {
                 followedUserPhotos = await getPhotos(userId, following);
             }
 
-            // Then youll get the new photos first
+            // Then youll get the new photos first, rearranged
             followedUserPhotos.sort((a,b) => b.dataCreated - a.dataCreated);
             setPhotos(followedUserPhotos)
         }
