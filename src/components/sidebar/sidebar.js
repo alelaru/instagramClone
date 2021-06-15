@@ -7,7 +7,7 @@ const Sidebar = () => {
     const {user: { docId, username, fullName, userId, following }
     }  = useUser();
 
-    console.log(docId);
+    // console.log(docId);
 
     return ( 
     <div className="p-4">

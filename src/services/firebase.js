@@ -81,3 +81,34 @@ export const updateLoginUserFollowersArrray = async (sgProfileId, userId, isFoll
 
     return result;
 }
+
+
+export const getPhotos = async (userId, following) => {
+
+    const result = await firebase
+    .firestore()
+    .collection('photos')
+    .where('userId', 'in', following)
+    .get()
+
+    const userFollowedPhotos = result.docs.map((photo) => ({
+        ...photo.data(),
+        docId: photo.id
+    }))
+
+    const photosWithUserDetails = await Promise.all(
+        userFollowedPhotos.map(async (photo) => {
+            let userLikedPhoto = false;
+            if(photo.likes.includes(userId)){
+                userLikedPhoto = true;
+            }
+            //We get the number 2
+            const user = await getUserbyUserId(photo.userId);
+            //Then we get the name that is raphael
+            const {username} = user[0]
+            return {username, ...photo, userLikedPhoto};
+        })
+    )
+
+    return photosWithUserDetails;
+}

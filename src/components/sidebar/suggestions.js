@@ -8,7 +8,8 @@ import SuggestedProfile from "./suggested-profile";
 const Suggestions = ({userId, following, loggedInUserDocId}) => {
     // The profiles to be suggested to the usetr
     const [profiles, setProfiles] = useState(null);
-
+    
+    
   // hint: use the firebase service (call using userId)
   // getSuggestedProfiles
   // call the async function ^^^^ within useEffect
