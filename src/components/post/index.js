@@ -4,6 +4,7 @@ import Header from "./header";
 import Actions from "./actions";
 import Footer from "./footer";
 import { useRef } from "react";
+import Comments from "./comments";
 
 
 const Post = ({content}) => {
@@ -24,6 +25,10 @@ const Post = ({content}) => {
                 docId={content.docId} totalLikes={content.likes.length} 
                 likedPhoto={content.userLikedPhoto} handleFocus={handleFocus}></Actions>
                 <Footer username={content.username} caption={content.caption}></Footer>
+                <Comments 
+                    docId={content.docId} comments={content.comments} 
+                    posted={content.dateCreated} commenInput={commentInput}>
+                </Comments>
             </div> );
 }
  
