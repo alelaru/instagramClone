@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
-import HeaderPost from "./header";
+import Image from "./image";
+import Header from "./header";
 
 
 const Post = ({content}) => {
@@ -7,7 +8,10 @@ const Post = ({content}) => {
 
     //components
     // header, image, actions (ability to click, like and comment), footer, commets
-    return ( <HeaderPost username={content.username}></HeaderPost> );
+    return ( <div className="rounded col-span-4 border bg-white border-gray-primary mb-12"> 
+                <Header username={content.username}></Header> 
+                <Image caption={content.caption} src={content.imageSrc}></Image> 
+            </div> );
 }
  
 export default Post;
