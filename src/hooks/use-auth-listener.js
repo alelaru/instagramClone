@@ -25,7 +25,11 @@ const useAuthListener = () => {
 
     }, [firebase]);
 
+    console.log("The user", user);
     return { user };
 }
  
 export default useAuthListener;
+
+// karl@gmai.com
+// 123123

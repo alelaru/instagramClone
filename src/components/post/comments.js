@@ -7,12 +7,12 @@ import AddComment from "./add-coment";
 
 
 const Comments = ({docId, comments: allComments, posted, commenInput}) => {
-    const [comments ,setComment] = useState(allComments);
+    const [comments ,setComments] = useState(allComments);
 
     return ( 
             <>
                 <div className="p-4 pt-1 pb-4">
-                    {comments.length >= 3 && (
+                    {comments.length >= 4 && (
                         <p className="text-small text-gray-base mb-1 cursor-pointer">
                             View all {comments.length} comments
                         </p>
@@ -26,7 +26,7 @@ const Comments = ({docId, comments: allComments, posted, commenInput}) => {
                         </p>
                     ))}
                     <p className="text-gray-base uppercase text-xs mt-2">{formatDistance(posted, new Date())} ago</p>
-                    <AddComment docId={docId}></AddComment>
+                    <AddComment docId={docId} comments={comments} setComments={setComments} commentInput={commenInput}></AddComment>
                 </div>
             </>
         );

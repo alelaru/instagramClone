@@ -32,8 +32,16 @@ const SignUp = () => {
                 //authentication
                     // -> email and password & username (displayName)
                 await createdUserResult.user.updateProfile({
-                    displayname: userName,
-                });
+                    displayName: userName,
+                }).then(() => {
+                    // Update successful
+                    // ...
+                    console.log("Update successful");
+                  }).catch((error) => {
+                    // An error occurred
+                    // ...
+                    console.log(error.message);
+                  });  
 
                 //firebase user collection (create a document)
                 await firebase.firestore().collection("users").add({

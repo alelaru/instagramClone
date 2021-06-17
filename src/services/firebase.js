@@ -121,7 +121,7 @@ export const addCommentToDatabase = async (comment, photoId) => {
     .collection('photos')
     .doc(photoId)
     .update({
-        comments: FieldValue.arrayUnion({comment, displayName:"karl"})
+        comments: FieldValue.arrayUnion(comment)
     });
 
 
