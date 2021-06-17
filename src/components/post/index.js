@@ -8,7 +8,7 @@ import Comments from "./comments";
 
 
 const Post = ({content}) => {
-    console.log(content);
+    // console.log(content);
 
     const commentInput = useRef(null);
 

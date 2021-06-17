@@ -113,3 +113,23 @@ export const getPhotos = async (userId, following) => {
 
     return photosWithUserDetails;
 }
+
+export const addCommentToDatabase = async (comment, photoId) => {
+
+    const result = await firebase
+    .firestore()
+    .collection('photos')
+    .doc(photoId)
+    .update({
+        comments: FieldValue.arrayUnion({comment, displayName:"karl"})
+    });
+
+
+    // .update({
+    //     followers: isFollowingProfile 
+    //     ? FieldValue.arrayRemove(userId)
+    //     : FieldValue.arrayUnion(userId)
+    // })
+
+    return result;
+}
