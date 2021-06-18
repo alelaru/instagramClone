@@ -14,7 +14,7 @@ const Comments = ({docId, comments: allComments, posted, commenInput}) => {
                 <div className="p-4 pt-1 pb-4">
                     {comments.length >= 4 && (
                         <p className="text-small text-gray-base mb-1 cursor-pointer">
-                            View all {comments.length} comments
+                            View all comments
                         </p>
                     )}
                     {comments.slice(0,3).map((item) => (

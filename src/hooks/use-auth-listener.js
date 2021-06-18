@@ -25,7 +25,7 @@ const useAuthListener = () => {
 
     }, [firebase]);
 
-    console.log("The user", user);
+    // console.log("The user", user);
     return { user };
 }
  
