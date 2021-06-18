@@ -3,18 +3,23 @@ import { Route, Redirect } from "react-router-dom";
 
 import * as ROUTES from "../constants/browse"
 
-const ProtectedRoute = ( {user, children, ...rest} ) => {
+const IsUserLoggedIn = ( {user, children, loggedInPath, ...rest} ) => {
+
+    console.log("user ....", user);
+    console.log(" HAY O NO HAY?",!user ? "false" : "true");
+
+
     return ( 
         <Route
             {...rest}
             render={({location}) => {
-                if(user){
+                if(!user){
                     return children;
                 }
-                if(!user){
+                if(user){
                   return  <Redirect
                         to={{
-                            pathname: ROUTES.LOGIN,
+                            pathname: loggedInPath,
                             state: { from: location}
                         }}
                     ></Redirect>
@@ -26,10 +31,11 @@ const ProtectedRoute = ( {user, children, ...rest} ) => {
      );
 }
  
-export default ProtectedRoute;  
+export default IsUserLoggedIn;  
 
 
-ProtectedRoute.propTypes = {
+IsUserLoggedIn.propTypes = {
     userId : PropTypes.string,
+    loggedInPath: PropTypes.string.isRequired,
     children: PropTypes.object.isRequired,
 }

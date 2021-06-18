@@ -16,7 +16,7 @@ const AddComment = ({docId, comments, setComments, commentInput}) => {
 
     // console.log("userid",userId + " Username: " + username);
     // console.log(userId);
-    console.log("user", displayName);
+    // console.log("user", displayName);
 
     const handleSubmitComment = (e) => {
         e.preventDefault();

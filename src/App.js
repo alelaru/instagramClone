@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import Login from "./pages/login";
 import * as ROUTES from "./constants/browse"
 import UserContext from "./context/user";
+import IsUserLoggedIn from "./helpers/is-user-loggedin";
 import ProtectedRoute from "./helpers/protected-route";
 import useAuthListener from "./hooks/use-auth-listener";
 
@@ -10,6 +11,7 @@ const Login = lazy(() => import ("./pages/login.js"));
 const SignUp = lazy(() => import ("./pages/signup.js"));
 const NotFound = lazy(() => import ("./pages/notfound.js"));
 const Dashboard = lazy(() => import ("./pages/dashboard.js"));
+const Profile = lazy(() => import ("./pages/profile.js"));
 
 
 function App() {
@@ -20,8 +22,14 @@ function App() {
     <Router>
       <Suspense fallback={<p>Loading ...</p>}>
         <Switch>
-          <Route path={ROUTES.LOGIN} component={Login}/>
-          <Route path={ROUTES.SIGN_UP} component={SignUp}></Route>
+          <IsUserLoggedIn user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.LOGIN}>
+            <Login></Login>
+          </IsUserLoggedIn>
+          <IsUserLoggedIn user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.SIGN_UP}>
+            <SignUp></SignUp>
+          </IsUserLoggedIn>
+          <Route path={ROUTES.PROFILE} component={Profile}/>
+          {/* <Route path={ROUTES.SIGN_UP} component={SignUp}></Route> */}
           {/* The protected works to not let the users enter into the page without a login/signup */}
           <ProtectedRoute user={user} path={ROUTES.DASHBOARD} exact>
             <Dashboard/>
