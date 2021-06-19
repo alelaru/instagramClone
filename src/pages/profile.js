@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { getUserByUserName } from "../services/firebase";
 import * as ROUTES from "../constants/browse"
+import Header from "../components/header"
+import UserProfile from "../components/profile";
 
 const Profile = () => {
     const {username} = useParams();
@@ -15,9 +17,8 @@ const Profile = () => {
         async function checkUserExist(){
             const user = await getUserByUserName(username)
             if(user.length > 0){
-                setUserExist(true)
                 setUser(user[0])
-                console.log("Data of the user", user);
+                setUserExist(true)
             }
             else{
                 history.push(ROUTES.NOT_FOUND)
@@ -29,8 +30,9 @@ const Profile = () => {
     return ( 
             userExist 
             ? <div className="bg-gray-background">
+                <Header></Header>
                 <div className="mx-auto max-w-screen-lg">
-                    {user.emailAddress}
+                    <UserProfile username={username} />
                 </div>
             </div>
             : null
