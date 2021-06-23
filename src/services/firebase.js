@@ -21,7 +21,7 @@ export const getUserByUserName = async(username) => {
         .where("username", "==", username)
         .get();
 
-      console.log(result);
+    //   console.log(result);
     return result.docs.map((item) => ({
         ...item.data(),
         docId: item.id
@@ -30,15 +30,21 @@ export const getUserByUserName = async(username) => {
 
 
 //Take photos with the username
-export const getUserPhotosByUsername = async(username) => {
+export const getUserPhotosByUsername = async(userId) => {
 
-    const [user] = await getUserByUserName(username);
-    // const result = await firebase
-    //     .firestore()
-    //     .collection("photos")
-    //     .where("username", "==", username)
-    //     .get();
-    return user
+    const result = await firebase
+    .firestore()
+    .collection("photos")
+    .where("userId", "==", userId)
+    .get();
+
+    const photos =  result.docs.map((item) => ({
+        ...item.data(),
+        docId: item.id
+    }));
+
+    console.log("Photos", photos);
+    return photos
 }
 
 //Get user from the firestore where the userid is equal to userid passed from the the auth in use-user

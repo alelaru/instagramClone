@@ -14,6 +14,6 @@ const Header = () => {
 export default Header;
 
 Header.propTypes = {
-    docId: PropTypes.string.isRequired,
-    comments: PropTypes.array.isRequired,
+    // docId: PropTypes.string.isRequired,
+    // comments: PropTypes.array.isRequired,
 }

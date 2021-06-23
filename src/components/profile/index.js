@@ -14,13 +14,16 @@ const UserProfile = ({username}) => {
     const [{profile, photosCollection, followerCount}, dispatch] = useReducer(reducer, initialState)
 
     useEffect(() => {
-        async function getProfileInfoAndPhotos(username){
-            const [{ user }] = await getUserByUserName(username);
-            // const photos = getUserPhotosByUsername(username);
+        async function getProfileInfoAndPhotos(){
+            const [ user ] = await getUserByUserName(username);
+            console.log("USERNAME", user);
+            const photos = getUserPhotosByUsername(user.userId);
             // dispatch({profile: user, photosCollection:photos, followerCount:user.followers.length})
+
         }
-    
-        getProfileInfoAndPhotos(username);
+        if(username){
+            getProfileInfoAndPhotos();
+        }
     }, [ ]);
 
     return ( <Header></Header> );

@@ -1,8 +1,6 @@
 import PropTypes from "prop-types"
 import { Route, Redirect } from "react-router-dom";
 
-import * as ROUTES from "../constants/browse"
-
 const IsUserLoggedIn = ( {user, children, loggedInPath, ...rest} ) => {
 
     console.log("user ....", user);
