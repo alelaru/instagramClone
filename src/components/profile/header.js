@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
 import useUser from "../../hooks/use-user";
 import { isUserFollowingProfile } from "../../services/firebase";
 
@@ -24,9 +25,10 @@ const Header = ({
     const [isFollowingProfile, setIsFollowingProfile] = useState(false);
     const activeBtnFollow = user.username && user.username !== profileUsername
     //console.log(activeBtnFollow);
-    console.log(photosCount);
+    // console.log(photosCount);
 
     useEffect(() => {
+        console.log("photosCount", photosCount);
         const isLoggedInUserFollowingProfile = async () =>{
             const isFollowing = isUserFollowingProfile(user.username, profileUserId);
             setIsFollowingProfile(isFollowing)
@@ -39,6 +41,10 @@ const Header = ({
 
     const handleToggleFollow = (e) => {
         e.preventDefault();
+        setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
+        setFollowerCount({
+            followerCount: isFollowingProfile ? followers.length - 1 : followers.length + 1
+        })
         
     }
     
@@ -62,10 +68,38 @@ const Header = ({
                             className="bg-blue-medium font-bold rounded text-white text-sm w-20 h-8"
                             type="button"
                             onClick={handleToggleFollow}
+                            onKeyDown={(event) => {
+                                if(event.key === "Enter"){
+                                    handleToggleFollow()
+                                }
+                            }}
                         >
                             {isFollowingProfile ? 'Unfollow' : 'Follow'}
                         </button>
                     )}
+                </div>
+                <div className="container flex mt-4">
+                    {followers === undefined || following === undefined 
+                    ? (
+                        <Skeleton count={1} width={677} height={24}></Skeleton>
+                    )
+                    : (
+                        <>
+                            <p className="mr-10">
+                                <span className="font-bold">{photosCount}</span> photos
+                            </p>
+                            <p className="mr-10">
+                                <span className="font-bold">{followers.length}</span> 
+                                {` `}
+                                {followers.length === 1 ? "follower" : "followers"}
+                            </p>
+                            <p className="mr-10">
+                                <span className="font-bold">{following.length}</span>
+                                 following
+                            </p>
+                        </>
+                    )
+                    }
                 </div>
             </div>
         </div>

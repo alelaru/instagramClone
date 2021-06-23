@@ -42,7 +42,7 @@ export const getUserPhotosByUsername = async(userId) => {
         ...photo.data(),
         docId: photo.id
     }));
-    console.log("PHOTOSSSSS", photos);
+    console.log("PHOTOSSSSS IN FIREBASE", photos);
     return photos
 }
 

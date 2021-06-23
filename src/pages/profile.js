@@ -14,9 +14,9 @@ const Profile = () => {
     useEffect(() => {
         
         async function checkUserExist(){
-            const user = await getUserByUserName(username)
-            if(user.length > 0){
-                setUser(user[0])
+            const [user] = await getUserByUserName(username)
+            if(user?.userId){
+                setUser(user)
             }
             else{
                 history.push(ROUTES.NOT_FOUND)
