@@ -42,7 +42,7 @@ export const getUserPhotosByUsername = async(userId) => {
         ...photo.data(),
         docId: photo.id
     }));
-    console.log("PHOTOSSSSS IN FIREBASE", photos);
+    // console.log("PHOTOSSSSS IN FIREBASE", photos);
     return photos
 }
 
@@ -83,7 +83,7 @@ export const getSuggestedProfiles = async(userId, following) => {
 
 //update the following array of the following user
 
-export const updateLoginUserFollowingArrray = async (loggedInUserDocId, sgProfileId, isFollowingProfile) => {
+export const updateLoginUserFollowingArrray = async (loggedInUserDocId, profileId, isFollowingProfile) => {
 
     const result = await firebase
     .firestore()
@@ -91,8 +91,8 @@ export const updateLoginUserFollowingArrray = async (loggedInUserDocId, sgProfil
     .doc(loggedInUserDocId)
     .update({
         following: isFollowingProfile 
-        ? FieldValue.arrayRemove(sgProfileId)
-        : FieldValue.arrayUnion(sgProfileId)
+        ? FieldValue.arrayRemove(profileId)
+        : FieldValue.arrayUnion(profileId)
     })
 
     return result;
@@ -100,16 +100,21 @@ export const updateLoginUserFollowingArrray = async (loggedInUserDocId, sgProfil
 
 //update the followers array of the person begin followed
 
-export const updateLoginUserFollowersArrray = async (sgProfileId, userId, isFollowingProfile) => {
+export const updateLoginUserFollowersArrray = async (
+    profileDocId, // current logged in user document Id
+    loggedInUserDocId, //The user that alelaru request to follow
+    isFollowingProfile //True or false if im actually following
+    ) => {
 
+    console.log("Entré");
     const result = await firebase
     .firestore()
     .collection("users")
-    .doc(sgProfileId)
+    .doc(profileDocId)
     .update({
         followers: isFollowingProfile 
-        ? FieldValue.arrayRemove(userId)
-        : FieldValue.arrayUnion(userId)
+        ? FieldValue.arrayRemove(loggedInUserDocId)
+        : FieldValue.arrayUnion(loggedInUserDocId)
     })
 
     return result;
@@ -181,6 +186,34 @@ export const isUserFollowingProfile = async (LoggedInUsername, profileUserId) =>
         docId: item.docId
     }))
 
-    console.log("is following",response);
+    // console.log("is following",response);
     return response.userId
+}
+
+//Toggle the button follow / unfollow
+// loggedUserId is the user logged into the app
+// profileUserId is the user we are checking the profile the want we want to toggle into their profile
+export const toggleFollow = async (
+    isFollowingProfile,
+    activeUserDocId,
+    profileDocId,
+    profileUserId,
+    followingUserId
+) => {
+
+    console.log("Follower array updated");
+    console.log("alelaru",activeUserDocId);
+    console.log("raphael",profileUserId);
+    console.log("IsFollowing?", isFollowingProfile);    
+  // 1st param: alelaru's doc id
+  // 2nd param: raphael's user id
+  // 3rd param: is the user following this profile? e.g. does karl follow raphael? (true/false)
+    await updateLoginUserFollowingArrray(activeUserDocId, profileUserId, isFollowingProfile);
+
+    console.log("Following array updated");
+  // 1st param: alelaru's user id
+  // 2nd param: raphael's doc id
+  // 3rd param: is the user following this profile? e.g. does karl follow raphael? (true/false)
+    await updateLoginUserFollowersArrray(profileDocId , followingUserId, isFollowingProfile);
+
 }

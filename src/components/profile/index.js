@@ -18,7 +18,7 @@ const UserProfile = ( {user} ) => {
         async function getProfileInfoAndPhotos(){
             // console.log("user to ask photos", user);
             const photos = await getUserPhotosByUsername(user.userId);
-            console.log("PHOTOS", photos);
+            // console.log("PHOTOS", photos);
             // console.log("USER", user);
             dispatch({ profile: user, photosCollection: photos, followerCount: user.followers.length });
             // console.log("PROFILE", profile);
