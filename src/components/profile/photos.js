@@ -1,13 +1,51 @@
 import PropTypes from "prop-types";
+import Skeleton from "react-loading-skeleton";
 
 
 
-const Photos = ({photos}) => {
-    return ( <p>Im a photo</p>  );
+const Photos = ({ photos }) => {
+    return ( 
+        <div className="h-16 border-t border-gray-primary mt-12 pt-4">
+            <div className="grid grid-cols-3 gap-8 mt-4 mb-12">
+                {!photos ? (
+                    <>
+                        <Skeleton count={12} width={320} height={400}></Skeleton>
+                    </>
+                )
+                : photos.length > 0 ? (
+                    photos.map((photo) => 
+                        <div className="relative group" key={photo.docId}>
+                            <img src={photo.imageSrc} alt={photo.caption}></img>
+                            <div className="absolute bottom-0 left-0 bg-gray-200 z-10 w-full justify-evenly items-center h-full bg-black-faded group-hover:flex hidden">
+                                <p className="flex items-center text-white font-bold">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                        className="w-8 mr-4"
+                                        >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                    {photo.likes.length}
+                                </p>
+                            </div>
+                        </div>
+                    )
+                )
+                : null
+                }
+            </div>
+
+        </div>
+        );
 }
  
 export default Photos;
 
-// Photos.propTypes = {
-//      photos: PropTypes.object.isRequired
-// }
+Photos.propTypes = {
+     photos: PropTypes.array.isRequired
+}

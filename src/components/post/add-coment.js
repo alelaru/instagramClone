@@ -1,7 +1,6 @@
 
 import PropTypes from "prop-types";
 import { useContext, useState } from "react";
-import FirebaseContext from "../../context/firebase";
 import UserContext from "../../context/user";
 import { addCommentToDatabase } from "../../services/firebase";
 
