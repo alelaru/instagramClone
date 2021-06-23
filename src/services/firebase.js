@@ -38,12 +38,11 @@ export const getUserPhotosByUsername = async(userId) => {
     .where("userId", "==", userId)
     .get();
 
-    const photos =  result.docs.map((item) => ({
-        ...item.data(),
-        docId: item.id
+    const photos =  result.docs.map((photo) => ({
+        ...photo.data(),
+        docId: photo.id
     }));
-
-    console.log("Photos", photos);
+    console.log("PHOTOSSSSS", photos);
     return photos
 }
 
@@ -166,4 +165,22 @@ export const addCommentToDatabase = async (comment, photoId) => {
     // })
 
     return result;
+}
+
+export const isUserFollowingProfile = async (LoggedInUsername, profileUserId) => {
+
+    const result = await firebase
+    .firestore()
+    .collection('users')
+    .where('username', '==', LoggedInUsername) //User loggedin
+    .where('following', 'array-contains',  profileUserId) //User that we are checking the profile
+    .get()
+
+    const [response = {}] = result.docs.map((item) => ({
+        ...item.data(),
+        docId: item.docId
+    }))
+
+    console.log("is following",response);
+    return response.userId
 }

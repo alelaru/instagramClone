@@ -2,9 +2,10 @@ import PropTypes from "prop-types";
 import { useEffect, useReducer } from "react";
 import { getUserByUserName, getUserPhotosByUsername } from "../../services/firebase";
 import Header from "./header"
+import Photos from "./photos";
 
-const UserProfile = ({username}) => {
-    const reducer = (state, newState) => ({ ...state, ...newState});
+const UserProfile = ({user}) => {
+    const reducer = (state, newState) => ({ ...state, ...newState });
     const initialState = {
         profile: {},
         photosCollection: [],
@@ -15,22 +16,42 @@ const UserProfile = ({username}) => {
 
     useEffect(() => {
         async function getProfileInfoAndPhotos(){
-            const [ user ] = await getUserByUserName(username);
-            console.log("USERNAME", user);
+            // console.log("user to ask photos", user);
             const photos = getUserPhotosByUsername(user.userId);
-            // dispatch({profile: user, photosCollection:photos, followerCount:user.followers.length})
-
+            // console.log("PHOTOS", photos);
+            // console.log("USER", user);
+            dispatch({ profile: user, photosCollection: photos, followerCount: user.followers.length });
+            // console.log("PROFILE", profile);
+            // console.log("PHOTOS COUNT", photosCollection);
+            // console.log("followerCount", followerCount);
         }
-        if(username){
             getProfileInfoAndPhotos();
-        }
-    }, [ ]);
+    }, [user.username]);
 
-    return ( <Header></Header> );
+    return ( 
+        <>
+            <Header 
+                photosCount={photosCollection ? photosCollection.length : 0}
+                profile={profile}
+                followerCount={followerCount}
+                setFollowerCount={dispatch}
+            >
+            </Header>
+            <Photos photos={photosCollection}></Photos>
+        </>
+        );
 }
  
 export default UserProfile;
 
 UserProfile.propTypes = {
-    username: PropTypes.string.isRequired,
-}
+    user: PropTypes.shape({
+        dateCreated: PropTypes.number,
+        emailAddress: PropTypes.string,
+        followers: PropTypes.array,
+        following: PropTypes.array,
+        fullName: PropTypes.string,
+        userId: PropTypes.string,
+        username: PropTypes.string
+      })
+    }
