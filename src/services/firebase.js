@@ -63,25 +63,44 @@ export const getUserbyUserId = async(userId) => {
 }
 
 //Get suggested profiles from the database and show it to the person
-export const getSuggestedProfiles = async(userId, following) => {
-    const result = await firebase
-    .firestore()
-    .collection("users")
-    .where("userId", "!=", userId)
-    .limit(10) 
-    .get();
+// export const getSuggestedProfiles = async(userId, following) => {
+//     const result = await firebase
+//     .firestore()
+//     .collection("users")
+//     .where("userId", "!=", userId)
+//     .limit(10) 
+//     .get();
 
-    console.log(result.docs);
-    console.log(following);
-    // Here it checks if the user is not i my following list 
-    const users =  result.docs
-                            .filter(item => !following.includes(item.id))
-                            .map(item => ({ 
-                                ...item.data(),
-                                docId: item.id
-                            }))
-    return users;
-}
+//     console.log(result.docs);
+//     console.log(following);
+//     // Here it checks if the user is not i my following list 
+//     const users =  result.docs
+//                             // .filter(item => !following.includes(item.id))
+//                             .filter(item => console.log(following.includes(item.id)))
+//                             .map(item => ({ 
+//                                 ...item.data(),
+//                                 docId: item.id
+//                             }))
+//     return users;
+// }
+
+export async function getSuggestedProfiles(userId, following) {
+    let query = firebase.firestore().collection('users');
+  
+    if (following.length > 0) {
+      query = query.where('userId', 'not-in', [...following, userId]);
+    } else {
+      query = query.where('userId', '!=', userId);
+    }
+    const result = await query.limit(10).get();
+  
+    const profiles = result.docs.map((user) => ({
+      ...user.data(),
+      docId: user.id
+    }));
+  
+    return profiles;
+  }
 
 //update the following array of the following user
 

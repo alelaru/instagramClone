@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-
+import Header from "../components/header";
 
 const NotFound = () => {
 
@@ -9,6 +9,7 @@ const NotFound = () => {
 
     return ( 
     <div className="bg-gray-background">
+        <Header></Header>
         <div classname="mx-auth max-w-screen-lg">
             <p className="text-center text-2xl">Not Found</p>
         </div>
