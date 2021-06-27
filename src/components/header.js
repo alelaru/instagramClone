@@ -11,10 +11,6 @@ const Header = () => {
     const {firebase } = useContext(FirebaseContext);
     const { user } = useContext(UserContext);
 
-    // console.log("user", user);
-    // console.log("firebase", firebase);
-
-
     return ( 
         <header className="h-16 bg-white border-b border-gray-primary mb-8">
             {/* This one is used by facebook and other companies as well */}
@@ -77,7 +73,7 @@ const Header = () => {
                                         <Link to={`/p/${user.displayName}`}>
                                             <img
                                                 className="rounded-full h-8 w-8 flex"
-                                                src={`images/avatars/karl.jpg`}
+                                                src={`images/avatars/${user.displayName}.jpg`}
                                                 alt={`${user.displayName} profile picture`}
                                             ></img>
                                         </Link>

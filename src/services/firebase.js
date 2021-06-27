@@ -71,6 +71,8 @@ export const getSuggestedProfiles = async(userId, following) => {
     .limit(10) 
     .get();
 
+    console.log(result.docs);
+    console.log(following);
     // Here it checks if the user is not i my following list 
     const users =  result.docs
                             .filter(item => !following.includes(item.id))
