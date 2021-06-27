@@ -19,12 +19,10 @@ const AddComment = ({docId, comments, setComments, commentInput}) => {
 
     const handleSubmitComment = (e) => {
         e.preventDefault();
-        console.log(docId);
-
         //giv me a new array
         //add the new comment
         // put the rest of the comments
-        setComments([{ displayName, comment}, ...comments]);
+        setComments([...comments, { displayName, comment}]);
 
         
         addCommentToDatabase({comment, displayName }, docId)
@@ -54,10 +52,11 @@ const AddComment = ({docId, comments, setComments, commentInput}) => {
                 <button 
                     className={`text-sm font-bold text-blue-medium ${!comment && 'opacity-25'}`} 
                     type="submit"
-                    disable={comment.length < 1}
+                    disabled={comment.length < 1}
                     onClick={handleSubmitComment}
                 >Post</button>
             </form>
+            <p>The button can be pressed? {comment.length < 1 ? true : false}</p>
         </div>
 
         );
