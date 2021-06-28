@@ -10,7 +10,7 @@ const NotFound = () => {
     return ( 
     <div className="bg-gray-background">
         <Header></Header>
-        <div classname="mx-auth max-w-screen-lg">
+        <div classname="mx-auto max-w-screen-lg">
             <p className="text-center text-2xl">Not Found</p>
         </div>
     </div>  

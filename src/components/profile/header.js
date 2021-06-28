@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
+import UserContext from "../../context/user";
 import useUser from "../../hooks/use-user";
 import { isUserFollowingProfile, toggleFollow } from "../../services/firebase";
 
@@ -11,7 +12,6 @@ const Header = ({
     photosCount, 
     followerCount, 
     setFollowerCount,
-    loggedInUsername,
     profile: {
         docId: profileDocId,
         userId: profileUserId,
@@ -21,9 +21,11 @@ const Header = ({
         username: profileUsername
       }
     }) => {
-    const {user} = useUser();
+    const { user: loggedInUser } = useContext(UserContext)
+    const {user} = useUser(loggedInUser?.uid);
+    console.log("user", user);
     const [isFollowingProfile, setIsFollowingProfile] = useState(false);
-    const activeBtnFollow = user.username && user.username !== profileUsername
+    const activeBtnFollow = user && user.username && user.username !== profileUsername
     //console.log(activeBtnFollow);
     // console.log(photosCount);
 
@@ -41,7 +43,7 @@ const Header = ({
             setIsFollowingProfile(!!isFollowing)
         }
     
-        if(user.username && profileUserId){
+        if(user?.username && profileUserId){
             isLoggedInUserFollowingProfile();
         }
     }, [ user?.username, profileUserId ]);

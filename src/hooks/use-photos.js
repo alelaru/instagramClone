@@ -1,43 +1,27 @@
-import { useContext, useEffect, useState } from "react";
-import UserContext from "../context/user";
-import { getPhotos, getUserbyUserId } from "../services/firebase";
+import { useEffect, useState } from "react";
+import { getPhotos } from "../services/firebase";
 
 
-const usePhotos = () => {
+const usePhotos = (user) => {
 
-    const [photos, setPhotos] = useState()
-
-    const {
-        user: {
-            uid: userId = ""
-        }
-
-    } = useContext(UserContext)
+    const [photos, setPhotos] = useState(null)
 
     useEffect(() => {
         
         async function getTimeLinePhotos(){
-            //Example: [2,1,5] <- 2 being raphael
-            const [{ following }] = await getUserbyUserId(userId);
-            let followedUserPhotos = [];
 
             //Does the person actually follows people
-            if(following.length > 0){
-                followedUserPhotos = await getPhotos(userId, following);
+            if(user?.following?.length > 0){
+                const followedUserPhotos = await getPhotos(user.userId, user.following);
+                // Then youll get the new photos first, rearranged
+                followedUserPhotos.sort((a,b) => b.dataCreated - a.dataCreated);
+                setPhotos(followedUserPhotos)
             }
-
-            // Then youll get the new photos first, rearranged
-            followedUserPhotos.sort((a,b) => b.dataCreated - a.dataCreated);
-            setPhotos(followedUserPhotos)
         }
-        if(userId){
              getTimeLinePhotos();
-        }
     
-        return () => {
-            
-        }
-    }, [userId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user?.userId]);
 
     return { photos };
 }

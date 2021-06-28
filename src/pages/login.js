@@ -68,7 +68,7 @@ const Login = () => {
                                 ${isInvalid && 'opacity-50'}`
                             }
                             onSubmit={handleLogin}>
-                                Log In
+                                Login
                         </button>                
                     </form>
                     </div>

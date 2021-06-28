@@ -49,7 +49,7 @@ const SignUp = () => {
                     username: userName.toLowerCase(),
                     fullName,
                     emailAddress: emailAddress.toLowerCase(),
-                    following: [],
+                    following: ["2"],
                     followers: [],
                     dateCreated: Date.now()
                 });
@@ -63,6 +63,7 @@ const SignUp = () => {
                 console.log(error.message);
             }
         }else{
+            setUserName("")
             setError("That username is already taken, try another one");
         }
 

@@ -56,7 +56,6 @@ const AddComment = ({docId, comments, setComments, commentInput}) => {
                     onClick={handleSubmitComment}
                 >Post</button>
             </form>
-            <p>The button can be pressed? {comment.length < 1 ? true : false}</p>
         </div>
 
         );

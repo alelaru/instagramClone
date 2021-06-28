@@ -20,7 +20,7 @@ const Suggestions = ({userId, following, loggedInUserDocId}) => {
 
         const suggestedProfiles = async () => {
             const response = await getSuggestedProfiles(userId, following);
-            console.log(response);
+            // console.log(response);
             setProfiles(response);
         }
 

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import Login from "./pages/login";
 import * as ROUTES from "./constants/browse"
 import UserContext from "./context/user";
-import IsUserLoggedIn from "./helpers/is-user-loggedin";
 import ProtectedRoute from "./helpers/protected-route";
 import useAuthListener from "./hooks/use-auth-listener";
 
@@ -22,12 +21,8 @@ function App() {
     <Router>
       <Suspense fallback={<p>Loading ...</p>}>
         <Switch>
-          <IsUserLoggedIn user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.LOGIN}>
-            <Login></Login>
-          </IsUserLoggedIn>
-          <IsUserLoggedIn user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.SIGN_UP}>
-            <SignUp></SignUp>
-          </IsUserLoggedIn>
+          <Route path={ROUTES.LOGIN} component={Login}/>
+          <Route path={ROUTES.SIGN_UP} component={SignUp}/>
           <Route path={ROUTES.PROFILE} component={Profile}/>
           {/* <Route path={ROUTES.SIGN_UP} component={SignUp}></Route> */}
           {/* The protected works to not let the users enter into the page without a login/signup */}
