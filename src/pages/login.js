@@ -79,6 +79,11 @@ const Login = () => {
                             <Link to="/signup" className="font-bold text-blue-medium"> Sign up</Link>
                         </p>
                     </div>
+                                        <div className="flex justify-center items-center flex-col w-full bg-white p-4 border border-gray-primary rounded">
+                        <p className="text-sm">
+                            email address: alelaru@gmail.com password:123123
+                        </p>
+                    </div>
             </div>
 
         </div>
