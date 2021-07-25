@@ -19,7 +19,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            await firebase.auth().signInWithEmailAndPassword(emailAddress, password)
+            await firebase.auth().rf(emailAddress, password)
             history.push(ROUTES.DASHBOARD);
         } catch (error) {
             setEmailAddress("");
@@ -43,9 +43,9 @@ const Login = () => {
                     <h1 className="flex justify-center w-full">
                             <img src="/images/logo.png" alt="instagram" className="mt-2 w6-/12 mb-4"></img>
                     </h1>
-                    { error && <p className="mb-4 text-xs text-red-primary">{error}</p>}
+                    { error && <p data-testid="error" className="mb-4 text-xs text-red-primary">{error}</p>}
 
-                    <form onSubmit={handleLogin} method="POST">
+                    <form onSubmit={handleLogin} method="POST" data-testid="login">
                         <input aria-label="Enter your email address"
                             type="text"
                             placeholder="Email address"
@@ -76,10 +76,10 @@ const Login = () => {
                     <div className="flex justify-center items-center flex-col w-full bg-white p-4 border border-gray-primary rounded">
                         <p className="text-sm">
                             Don't have an account?
-                            <Link to="/signup" className="font-bold text-blue-medium"> Sign up</Link>
+                            <Link to="/signup" className="font-bold text-blue-medium" data-testid="sign-up"> Sign up</Link>
                         </p>
                     </div>
-                                        <div className="flex justify-center items-center flex-col w-full bg-white p-4 border border-gray-primary rounded">
+                    <div className="flex justify-center items-center flex-col w-full bg-white p-4 border border-gray-primary rounded">
                         <p className="text-sm">
                             email address: alelaru@gmail.com password:123123
                         </p>
